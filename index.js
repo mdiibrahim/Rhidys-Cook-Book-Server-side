@@ -12,8 +12,14 @@ async function run() {
     try {
       const serviceCollection = client.db("Rhidys-Cook-Book").collection("services");
         app.get('/services', async (req, res) => {
-            const cursor = serviceCollection.find({});
-            res.send(await cursor.toArray());
+          const cursor = serviceCollection.find({});
+          const services = await cursor.toArray()
+          res.send(services)
+     })
+        app.get('/services-at-home', async (req, res) => {
+          const cursor = serviceCollection.find({});
+          const serviceAtHomes = await cursor.skip(3).limit(3).toArray();
+          res.send(serviceAtHomes)
      })
     } finally {
       
