@@ -8,11 +8,18 @@ app.use(express.json());
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@rhidys-cook-book.ms5fwvj.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
+async function run() {
+    try {
+      const serviceCollection = client.db("Rhidys-Cook-Book").collection("services");
+        app.get('/services', async (req, res) => {
+            const cursor = serviceCollection.find({});
+            res.send(await cursor.toArray());
+     })
+    } finally {
+      
+    }
+  }
+  run().catch(error => console.error(error));
 
 app.get('/', (req, res) => {
     res.send("Rhidys-Cook-Book server is running..........");
