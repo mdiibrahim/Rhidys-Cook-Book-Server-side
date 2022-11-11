@@ -39,7 +39,7 @@ async function run() {
         const result = await reviewCollection.insertOne(review);
         res.send(result);
       });
-      app.get('/orders', async (req, res) => {
+      app.get('/reviews', async (req, res) => {
 
         
         
